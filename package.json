@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "model:inspect": "gltf-transform inspect public/models/original/input.glb",
+    "model:resize": "gltf-transform resize public/models/original/input.glb public/models/optimized/resized.glb --width 2048 --height 2048",
+    "model:optimize": "gltf-transform optimize public/models/original/input.glb public/models/optimized/demo-apartment.glb --texture-compress webp",
+    "model:copy": "cp public/models/optimized/demo-apartment.glb public/models/demo-apartment.glb"
   },
   "dependencies": {
     "next": "16.2.9",
@@ -14,6 +18,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@gltf-transform/cli": "^4.4.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

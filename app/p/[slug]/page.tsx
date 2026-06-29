@@ -51,7 +51,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
           </p>
         </div>
 
-        <ModelViewer src={property.modelUrl} />
+        <ModelViewer src={property.modelUrl} poster={property.images[0]} />
 
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <ShareButton />

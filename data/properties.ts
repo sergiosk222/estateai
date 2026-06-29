@@ -10,10 +10,10 @@ export type Property = {
 export const properties: Property[] = [
   {
     slug: "demo-apartment",
-    title: "Modern apartment in Thessaloniki",
+    title: "Demo Apartment Template",
     city: "Thessaloniki, Greece",
     description:
-      "A clean demo property page showing how EstateAI can present an apartment as an interactive 3D model directly in the browser.",
+      "A demo property page showing how EstateAI can present a real estate object as an interactive 3D model directly in the browser. This is a template object used for product testing.",
     modelUrl: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
     images: [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
