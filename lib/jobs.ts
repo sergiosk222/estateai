@@ -9,9 +9,16 @@ export type UploadedJobFile = {
   relativePath: string;
 };
 
+export type ExtractedFrame = {
+  fileName: string;
+  relativePath: string;
+  size: number;
+};
+
 export type ProcessingJobStatus =
   | "uploaded"
   | "extracting_frames"
+  | "frames_extracted"
   | "reconstructing"
   | "optimizing"
   | "completed"
@@ -28,7 +35,10 @@ export type ProcessingJob = {
   reconstructionDir: string;
   outputDir: string;
   files: UploadedJobFile[];
+  frames: ExtractedFrame[];
+  frameCount: number;
   notes: string[];
+  error?: string;
 };
 
 export function getCapturesRoot() {
@@ -89,14 +99,60 @@ export async function ensureJobFolders(jobId: string) {
 }
 
 export async function writeJob(job: ProcessingJob) {
+  job.updatedAt = new Date().toISOString();
   await fs.writeFile(getJobJsonPath(job.jobId), JSON.stringify(job, null, 2));
 }
 
 export async function readJob(jobId: string): Promise<ProcessingJob | null> {
   try {
     const raw = await fs.readFile(getJobJsonPath(jobId), "utf-8");
-    return JSON.parse(raw) as ProcessingJob;
+    const parsed = JSON.parse(raw) as Partial<ProcessingJob>;
+
+    return {
+      jobId: parsed.jobId || jobId,
+      status: parsed.status || "uploaded",
+      createdAt: parsed.createdAt || new Date().toISOString(),
+      updatedAt: parsed.updatedAt || new Date().toISOString(),
+      inputType: parsed.inputType || "unknown",
+      rawDir: parsed.rawDir || `captures/${jobId}/raw`,
+      framesDir: parsed.framesDir || `captures/${jobId}/frames`,
+      reconstructionDir: parsed.reconstructionDir || `captures/${jobId}/reconstruction`,
+      outputDir: parsed.outputDir || `captures/${jobId}/output`,
+      files: parsed.files || [],
+      frames: parsed.frames || [],
+      frameCount: parsed.frameCount || 0,
+      notes: parsed.notes || [],
+      error: parsed.error
+    };
   } catch {
     return null;
+  }
+}
+
+export async function listFrames(jobId: string): Promise<ExtractedFrame[]> {
+  const framesDir = path.join(getJobDir(jobId), "frames");
+
+  try {
+    const files = await fs.readdir(framesDir);
+    const jpgFiles = files
+      .filter((file) => file.toLowerCase().endsWith(".jpg"))
+      .sort();
+
+    const frames: ExtractedFrame[] = [];
+
+    for (const fileName of jpgFiles) {
+      const absolutePath = path.join(framesDir, fileName);
+      const stat = await fs.stat(absolutePath);
+
+      frames.push({
+        fileName,
+        relativePath: `captures/${jobId}/frames/${fileName}`,
+        size: stat.size
+      });
+    }
+
+    return frames;
+  } catch {
+    return [];
   }
 }

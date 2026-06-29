@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import path from "path";
 import { promises as fs } from "fs";
 import { NextResponse } from "next/server";
+import { extractFramesForJob } from "@/lib/frame-extraction";
 import {
   detectInputType,
   ensureJobFolders,
@@ -19,6 +20,10 @@ const MAX_TOTAL_SIZE = 500 * 1024 * 1024;
 
 function isAllowedFile(file: File) {
   return file.type.startsWith("image/") || file.type.startsWith("video/");
+}
+
+function hasVideoFiles(files: UploadedJobFile[]) {
+  return files.some((file) => file.mimeType.startsWith("video/"));
 }
 
 function formatBytes(bytes: number) {
@@ -103,7 +108,7 @@ export async function POST(request: Request) {
 
     const now = new Date().toISOString();
 
-    const job: ProcessingJob = {
+    let job: ProcessingJob = {
       jobId,
       status: "uploaded",
       createdAt: now,
@@ -114,13 +119,45 @@ export async function POST(request: Request) {
       reconstructionDir: `captures/${jobId}/reconstruction`,
       outputDir: `captures/${jobId}/output`,
       files: savedFiles,
+      frames: [],
+      frameCount: 0,
       notes: [
         "Files uploaded successfully.",
-        "Next step: extract frames from video or prepare image set for reconstruction."
+        "Processing job created."
       ]
     };
 
     await writeJob(job);
+
+    if (hasVideoFiles(savedFiles)) {
+      try {
+        job = await extractFramesForJob(job, {
+          fps: 2,
+          width: 1600
+        });
+      } catch (frameError) {
+        console.error("Frame extraction failed:", frameError);
+
+        job.status = "failed";
+        job.error =
+          frameError instanceof Error
+            ? frameError.message
+            : "Frame extraction failed.";
+        job.notes.push("Frame extraction failed.");
+        await writeJob(job);
+
+        return NextResponse.json(
+          {
+            message: "Upload completed, but frame extraction failed.",
+            job
+          },
+          { status: 500 }
+        );
+      }
+    } else {
+      job.notes.push("No video uploaded. Frame extraction skipped.");
+      await writeJob(job);
+    }
 
     return NextResponse.json(
       {

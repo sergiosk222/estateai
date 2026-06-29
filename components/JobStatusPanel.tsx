@@ -11,6 +11,12 @@ type JobFile = {
   relativePath: string;
 };
 
+type JobFrame = {
+  fileName: string;
+  relativePath: string;
+  size: number;
+};
+
 type Job = {
   jobId: string;
   status: string;
@@ -22,7 +28,10 @@ type Job = {
   reconstructionDir: string;
   outputDir: string;
   files: JobFile[];
+  frames: JobFrame[];
+  frameCount: number;
   notes: string[];
+  error?: string;
 };
 
 type JobStatusPanelProps = {
@@ -63,6 +72,10 @@ export default function JobStatusPanel({ jobId }: JobStatusPanelProps) {
     }
 
     loadJob();
+
+    const interval = window.setInterval(loadJob, 2500);
+
+    return () => window.clearInterval(interval);
   }, [jobId]);
 
   if (error) {
@@ -87,6 +100,7 @@ export default function JobStatusPanel({ jobId }: JobStatusPanelProps) {
   }
 
   const totalSize = job.files.reduce((sum, file) => sum + file.size, 0);
+  const firstFrames = job.frames.slice(0, 10);
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
@@ -97,7 +111,7 @@ export default function JobStatusPanel({ jobId }: JobStatusPanelProps) {
 
         <h2 className="mt-4 break-all text-3xl font-black">{job.jobId}</h2>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-4">
           <div className="rounded-2xl bg-neutral-100 p-4">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-500">
               Status
@@ -118,7 +132,20 @@ export default function JobStatusPanel({ jobId }: JobStatusPanelProps) {
             </p>
             <p className="mt-2 font-black">{formatBytes(totalSize)}</p>
           </div>
+
+          <div className="rounded-2xl bg-neutral-100 p-4">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-500">
+              Frames
+            </p>
+            <p className="mt-2 font-black">{job.frameCount || 0}</p>
+          </div>
         </div>
+
+        {job.error && (
+          <div className="mt-6 rounded-2xl bg-red-50 p-5 text-sm font-semibold text-red-800">
+            {job.error}
+          </div>
+        )}
 
         <div className="mt-8">
           <h3 className="text-xl font-black">Uploaded files</h3>
@@ -149,6 +176,38 @@ export default function JobStatusPanel({ jobId }: JobStatusPanelProps) {
           </div>
         </div>
 
+        {job.frameCount > 0 && (
+          <div className="mt-8">
+            <h3 className="text-xl font-black">Extracted frames</h3>
+
+            <p className="mt-2 text-sm leading-6 text-neutral-600">
+              Showing first {firstFrames.length} frames from {job.frameCount}.
+            </p>
+
+            <div className="mt-4 overflow-hidden rounded-2xl border border-black/10">
+              {firstFrames.map((frame) => (
+                <div
+                  key={frame.relativePath}
+                  className="flex items-center justify-between gap-4 border-b border-black/10 px-4 py-3 last:border-b-0"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-bold">
+                      {frame.fileName}
+                    </p>
+                    <p className="mt-1 break-all text-xs text-neutral-400">
+                      {frame.relativePath}
+                    </p>
+                  </div>
+
+                  <p className="shrink-0 text-sm font-semibold text-neutral-600">
+                    {formatBytes(frame.size)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/upload"
@@ -169,32 +228,33 @@ export default function JobStatusPanel({ jobId }: JobStatusPanelProps) {
       <div className="space-y-6">
         <div className="rounded-[2rem] bg-black p-6 text-white shadow-sm md:p-8">
           <p className="text-sm font-bold uppercase tracking-[0.25em] text-white/50">
-            Next technical step
+            Current stage
           </p>
 
           <h2 className="mt-5 text-3xl font-black">
-            Extract frames from uploaded video.
+            {job.status === "frames_extracted"
+              ? "Frames extracted successfully."
+              : job.status === "extracting_frames"
+                ? "Extracting frames..."
+                : job.status === "failed"
+                  ? "Processing failed."
+                  : "Waiting for frame extraction."}
           </h2>
 
           <p className="mt-4 leading-7 text-white/70">
-            This job is now ready for the local frame extraction script or a
-            future background worker.
+            The next technical milestone is sending these frames to a 3D
+            reconstruction engine.
           </p>
         </div>
 
         <div className="rounded-[2rem] border border-black/10 bg-white p-6 shadow-sm md:p-8">
           <p className="text-sm font-bold uppercase tracking-[0.25em] text-neutral-500">
-            Local command
+            Frame folder
           </p>
 
-          <p className="mt-4 text-sm leading-6 text-neutral-600">
-            If this job contains a video, use the saved file path from the list
-            and run frame extraction manually.
+          <p className="mt-4 break-all text-sm leading-6 text-neutral-600">
+            {job.framesDir}
           </p>
-
-          <pre className="mt-5 overflow-auto rounded-2xl bg-neutral-950 p-4 text-xs text-white">
-{`npm run capture:frames -- captures/${job.jobId}/raw/VIDEO_FILE.mov captures/${job.jobId}/frames 2`}
-          </pre>
         </div>
 
         <div className="rounded-[2rem] border border-black/10 bg-white p-6 shadow-sm md:p-8">

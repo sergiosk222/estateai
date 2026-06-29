@@ -25,9 +25,7 @@ export default function UploadPage() {
           </h1>
 
           <p className="mt-6 text-base leading-7 text-neutral-700 sm:text-lg sm:leading-8">
-            This is the first real upload system for EstateAI. The website saves
-            uploaded property files, creates a job and prepares the data for the
-            future AI 3D generation pipeline.
+            This is the first real upload system for EstateAI. The website saves uploaded property files, creates a job and automatically extracts frames from uploaded videos for the future AI 3D generation pipeline.
           </p>
         </div>
 
