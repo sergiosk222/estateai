@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | EstateAI"
   },
   description:
-    "EstateAI helps real estate agents present properties with interactive 3D pages that open directly in the browser.",
+    "EstateAI helps real estate agents create shareable 3D property pages that help buyers understand listings before they visit.",
   applicationName: "EstateAI",
   keywords: [
     "real estate",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "EstateAI — 3D Property Pages for Real Estate",
     description:
-      "Interactive 3D property pages for real estate agents and property listings.",
+      "Shareable 3D property pages that help buyers understand real estate listings before they visit.",
     url: siteUrl,
     siteName: "EstateAI",
     type: "website",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "EstateAI — 3D Property Pages for Real Estate",
     description:
-      "Interactive 3D property pages for real estate agents and property listings.",
+      "Shareable 3D property pages that help buyers understand real estate listings before they visit.",
     images: ["/og-image.png"]
   },
   robots: {

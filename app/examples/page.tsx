@@ -17,27 +17,28 @@ export default function ExamplesPage() {
             </p>
 
             <h1 className="mt-4 text-5xl font-black tracking-tight md:text-7xl">
-              Example 3D property pages.
+              See how a property can look before the visit.
             </h1>
 
             <p className="mt-6 max-w-3xl text-lg leading-8 text-neutral-700">
-              Explore example property pages with photos, descriptions and
-              browser-based 3D viewing.
+              These example listings show how apartments, villas and commercial
+              spaces can be presented with photos, description and interactive
+              3D viewing in one browser link.
             </p>
           </div>
 
           <div className="rounded-[2rem] bg-black p-6 text-white shadow-sm md:p-8">
             <p className="text-sm font-bold uppercase tracking-[0.25em] text-white/50">
-              Early examples
+              Buyer-ready presentation
             </p>
 
             <h2 className="mt-5 text-3xl font-black">
-              Safe template objects
+              One link instead of a long explanation.
             </h2>
 
             <p className="mt-4 leading-7 text-white/70">
-              These pages are examples. Real client properties will receive
-              their own photos, model and public link.
+              Send buyers a simple page where they can understand the property
+              before scheduling a physical viewing.
             </p>
           </div>
         </div>
@@ -52,12 +53,12 @@ export default function ExamplesPage() {
       <section className="mx-auto max-w-7xl px-6 pb-20">
         <div className="rounded-[2rem] border border-black/10 bg-white p-8 text-center shadow-sm md:p-12">
           <h2 className="text-4xl font-black tracking-tight md:text-5xl">
-            Want this for a real property?
+            Want to test a 3D page on your listing?
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-neutral-600">
-            Request early access and we will contact you about creating a 3D
-            property page.
+            Start with one property and see how buyers react before using it
+            across more listings.
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">

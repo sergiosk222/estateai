@@ -1,4 +1,3 @@
-import Link from "next/link";
 import TrackedLink from "@/components/TrackedLink";
 import PublicHeader from "@/components/PublicHeader";
 import PublicFooter from "@/components/PublicFooter";
@@ -15,16 +14,17 @@ export default function HomePage() {
       <section className="mx-auto grid min-h-[80vh] max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2">
         <div>
           <p className="mb-5 inline-flex rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-semibold text-neutral-700 shadow-sm sm:text-sm">
-            3D property pages for real estate
+            For real estate agents and property teams
           </p>
 
           <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
-            Show properties with interactive 3D models.
+            Help buyers understand the property before they visit.
           </h1>
 
           <p className="mt-6 max-w-2xl text-base leading-7 text-neutral-700 sm:mt-7 sm:text-lg sm:leading-8">
-            EstateAI helps real estate agents present properties with
-            browser-ready 3D pages that can be shared with buyers by link.
+            EstateAI turns a property into a clean, shareable 3D page. Buyers
+            can explore the space directly in their browser, understand the
+            layout faster and decide if the property is worth a real visit.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
@@ -33,7 +33,7 @@ export default function HomePage() {
               eventName="hero_examples_click"
               className="rounded-full bg-black px-8 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"
             >
-              View examples
+              View example listings
             </TrackedLink>
 
             <TrackedLink
@@ -41,7 +41,7 @@ export default function HomePage() {
               eventName="hero_request_click"
               className="rounded-full border border-black/20 bg-white px-8 py-4 text-center text-sm font-bold transition hover:bg-neutral-100"
             >
-              Request a 3D model
+              Request a 3D page
             </TrackedLink>
           </div>
 
@@ -49,21 +49,21 @@ export default function HomePage() {
             <div>
               <p className="text-2xl font-black sm:text-3xl">3D</p>
               <p className="mt-1 text-xs text-neutral-600 sm:text-sm">
-                property view
+                browser viewing
               </p>
             </div>
 
             <div>
               <p className="text-2xl font-black sm:text-3xl">1 link</p>
               <p className="mt-1 text-xs text-neutral-600 sm:text-sm">
-                easy sharing
+                for every buyer
               </p>
             </div>
 
             <div>
               <p className="text-2xl font-black sm:text-3xl">0 apps</p>
               <p className="mt-1 text-xs text-neutral-600 sm:text-sm">
-                for buyers
+                no installation
               </p>
             </div>
           </div>
@@ -95,8 +95,8 @@ export default function HomePage() {
             </div>
 
             <p className="mt-4 text-sm leading-6 text-neutral-600">
-              Example property page with photos, description and an interactive
-              3D model in the browser.
+              A premium property page with photos, description and interactive
+              3D viewing for serious buyers.
             </p>
 
             <TrackedLink
@@ -107,7 +107,7 @@ export default function HomePage() {
               }}
               className="mt-6 block rounded-full bg-black px-6 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"
             >
-              Open 3D example
+              Open example listing
             </TrackedLink>
           </div>
         </div>
@@ -120,26 +120,31 @@ export default function HomePage() {
           </p>
 
           <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-            From property capture to shareable 3D page.
+            A better listing in three simple steps.
           </h2>
+
+          <p className="mt-5 text-base leading-7 text-neutral-700 sm:text-lg sm:leading-8">
+            The agent gets a clean 3D property page that can be sent to buyers,
+            added to a listing or shared before a physical viewing.
+          </p>
         </div>
 
         <div className="mt-10 grid gap-5 sm:mt-12 md:grid-cols-3">
           {[
             {
               number: "01",
-              title: "Capture",
-              text: "The property is captured with photos, video or a 3D scan."
+              title: "Capture the property",
+              text: "Send photos, video or a scan of the property. We explain what is needed before preparing the page."
             },
             {
               number: "02",
-              title: "Create",
-              text: "A browser-ready 3D model and property page are prepared."
+              title: "Prepare the 3D page",
+              text: "The property is turned into a browser-ready page with visuals, description and interactive 3D viewing."
             },
             {
               number: "03",
-              title: "Share",
-              text: "The agent receives a simple link for clients and listings."
+              title: "Share with buyers",
+              text: "Send one link through WhatsApp, email, your website or property portals."
             }
           ].map((step) => (
             <div
@@ -161,20 +166,25 @@ export default function HomePage() {
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.25em] text-white/50">
-                Why agents need it
+                Why agents use it
               </p>
 
               <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-                Better listings. Better understanding. Fewer wasted visits.
+                Give buyers more clarity before they book a viewing.
               </h2>
+
+              <p className="mt-5 leading-7 text-white/65">
+                Photos are useful, but they often fail to explain the flow of a
+                property. A 3D page helps buyers understand the space faster.
+              </p>
             </div>
 
             <div className="grid gap-4 sm:gap-5">
               {[
-                "Buyers understand the layout before visiting.",
-                "Agents send one strong 3D link instead of many photos.",
-                "Listings look more premium and easier to remember.",
-                "The same page can be shared through websites, WhatsApp or email."
+                "Reduce low-quality visits from buyers who did not understand the layout.",
+                "Make listings look more premium and easier to remember.",
+                "Send a stronger property presentation with one simple link.",
+                "Help remote buyers inspect the space before asking for a physical viewing."
               ].map((benefit) => (
                 <div
                   key={benefit}
@@ -188,33 +198,62 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+        <div className="grid gap-5 md:grid-cols-3">
+          {[
+            {
+              title: "For apartments",
+              text: "Show room flow, balconies, corridors and layout in a way photos alone cannot explain."
+            },
+            {
+              title: "For villas",
+              text: "Create a premium presentation for higher-value properties, holiday homes and investment listings."
+            },
+            {
+              title: "For offices",
+              text: "Help companies understand commercial spaces before arranging an on-site visit."
+            }
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="rounded-[1.5rem] border border-black/10 bg-white p-6 shadow-sm sm:rounded-[2rem] sm:p-8"
+            >
+              <h3 className="text-2xl font-black">{item.title}</h3>
+              <p className="mt-4 leading-7 text-neutral-600">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <PricingSection />
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="rounded-[1.5rem] border border-black/10 bg-white p-6 text-center shadow-sm sm:rounded-[2rem] sm:p-8 md:p-14">
           <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-            Want a 3D page for a property?
+            Want to test it on a real listing?
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg sm:leading-8">
-            EstateAI is preparing early tests with real estate agents and small
-            agencies.
+            Send a request and we will explain what files are needed, what can
+            be prepared and which package fits your property.
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
-            <Link
+            <TrackedLink
               href="/request"
+              eventName="bottom_request_click"
               className="rounded-full bg-black px-8 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"
             >
               Request early access
-            </Link>
+            </TrackedLink>
 
-            <Link
+            <TrackedLink
               href="/examples"
+              eventName="bottom_examples_click"
               className="rounded-full border border-black/20 px-8 py-4 text-center text-sm font-bold transition hover:bg-neutral-100"
             >
               View examples
-            </Link>
+            </TrackedLink>
           </div>
         </div>
       </section>

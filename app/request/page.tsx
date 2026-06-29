@@ -14,12 +14,13 @@ export default function RequestPage() {
           </p>
 
           <h1 className="mt-4 text-5xl font-black tracking-tight md:text-7xl">
-            Request a 3D page for a property.
+            Test a 3D page on one property listing.
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-neutral-700">
-            Send a short request. We will contact you and explain what files or
-            property capture are needed. Early-access packages start from 49 €.
+            Send a short request. We will check the property type, explain what
+            files are needed and suggest the best early-access package.
+            Packages start from 49 €.
           </p>
         </div>
 

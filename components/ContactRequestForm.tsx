@@ -209,12 +209,12 @@ export default function ContactRequestForm() {
           </p>
 
           <h2 className="mt-5 text-3xl font-black">
-            Create a stronger property listing.
+            Give buyers a clearer first impression.
           </h2>
 
           <p className="mt-4 leading-7 text-white/70">
-            EstateAI helps present properties with a clear, shareable 3D page
-            that buyers can open directly in the browser.
+            A 3D property page helps buyers understand the layout before they
+            ask for a viewing, saving time for both agents and clients.
           </p>
         </div>
 
@@ -226,10 +226,10 @@ export default function ContactRequestForm() {
           <div className="mt-6 space-y-4">
             {[
               "We receive your request.",
-              "We check the property type and location.",
+              "We check if the listing is suitable for a 3D page.",
               "We explain what photos, video or scan are needed.",
-              "A 3D property page is prepared.",
-              "You receive a shareable link."
+              "The property page is prepared.",
+              "You receive a link ready to share with buyers."
             ].map((item, index) => (
               <div key={item} className="flex gap-4">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black text-xs font-black text-white">

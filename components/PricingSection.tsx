@@ -2,42 +2,42 @@ import TrackedLink from "@/components/TrackedLink";
 
 const plans = [
   {
-    name: "Basic 3D Page",
+    name: "Starter Listing",
     price: "49 €",
-    description: "For one simple property listing.",
+    description: "For testing one simple property.",
     features: [
-      "1 public 3D property page",
+      "1 public property page",
       "Photo gallery",
-      "Shareable browser link",
-      "Basic property description",
-      "Mobile-friendly viewing"
+      "Interactive 3D viewer",
+      "Shareable buyer link",
+      "Mobile-friendly page"
     ],
     highlighted: false
   },
   {
-    name: "Pro Listing",
+    name: "Premium Listing",
     price: "89 €",
-    description: "For agents who want a stronger listing.",
+    description: "For agents who want a stronger presentation.",
     features: [
-      "1 public 3D property page",
+      "1 premium property page",
       "Photo gallery",
-      "Improved property description",
+      "Interactive 3D viewer",
+      "Improved listing text",
       "Buyer-ready share link",
-      "Priority preparation",
-      "Basic support"
+      "Priority preparation"
     ],
     highlighted: true
   },
   {
-    name: "Agency Pack",
+    name: "Agency Test Pack",
     price: "299 €",
-    description: "For small agencies testing multiple properties.",
+    description: "For agencies testing several listings.",
     features: [
       "Up to 5 property pages",
-      "Reusable listing format",
-      "Agency-friendly workflow",
-      "Shareable links for each object",
-      "Best for first market test"
+      "Reusable agency format",
+      "Share links for each listing",
+      "Best for early market testing",
+      "Simple workflow for future listings"
     ],
     highlighted: false
   }
@@ -52,13 +52,12 @@ export default function PricingSection() {
         </p>
 
         <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-          Simple early-access pricing.
+          Early-access packages for real estate agents.
         </h2>
 
         <p className="mt-5 text-base leading-7 text-neutral-700 sm:text-lg sm:leading-8">
-          These are early test packages for real estate agents and small
-          agencies. Final pricing may change after the first real property
-          tests.
+          Start with one listing, test buyer reaction and decide if 3D pages
+          should become part of your regular property marketing.
         </p>
       </div>
 
@@ -95,7 +94,7 @@ export default function PricingSection() {
                   plan.highlighted ? "text-white/50" : "text-neutral-500"
                 }`}
               >
-                per package
+                early-access package
               </p>
             </div>
 
@@ -144,9 +143,8 @@ export default function PricingSection() {
 
       <div className="mt-8 rounded-[1.5rem] border border-black/10 bg-white p-5 text-sm leading-7 text-neutral-600 shadow-sm sm:rounded-[2rem] sm:p-6">
         <p>
-          Early-access prices are designed for market testing. For large
-          agencies, custom packages can be discussed after the first demo
-          properties.
+          Prices are early-access test packages. Final pricing may change after
+          the first real property projects and agency feedback.
         </p>
       </div>
     </section>
