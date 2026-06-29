@@ -45,28 +45,28 @@ const plans = [
 
 export default function PricingSection() {
   return (
-    <section id="pricing" className="mx-auto max-w-7xl px-6 py-20">
-      <div className="mb-12 max-w-3xl">
+    <section id="pricing" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <div className="mb-10 max-w-3xl sm:mb-12">
         <p className="text-sm font-bold uppercase tracking-[0.25em] text-neutral-500">
           Pricing
         </p>
 
-        <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
+        <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
           Simple early-access pricing.
         </h2>
 
-        <p className="mt-5 text-lg leading-8 text-neutral-700">
+        <p className="mt-5 text-base leading-7 text-neutral-700 sm:text-lg sm:leading-8">
           These are early test packages for real estate agents and small
           agencies. Final pricing may change after the first real property
           tests.
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-5 lg:grid-cols-3">
         {plans.map((plan) => (
           <div
             key={plan.name}
-            className={`rounded-[2rem] border p-8 shadow-sm ${
+            className={`rounded-[1.5rem] border p-6 shadow-sm sm:rounded-[2rem] sm:p-8 ${
               plan.highlighted
                 ? "border-black bg-black text-white"
                 : "border-black/10 bg-white text-neutral-950"
@@ -137,7 +137,7 @@ export default function PricingSection() {
         ))}
       </div>
 
-      <div className="mt-8 rounded-[2rem] border border-black/10 bg-white p-6 text-sm leading-7 text-neutral-600 shadow-sm">
+      <div className="mt-8 rounded-[1.5rem] border border-black/10 bg-white p-5 text-sm leading-7 text-neutral-600 shadow-sm sm:rounded-[2rem] sm:p-6">
         <p>
           Early-access prices are designed for market testing. For large
           agencies, custom packages can be discussed after the first demo

@@ -11,22 +11,22 @@ export default function HomePage() {
     <main className="min-h-screen bg-[#f7f5f0] text-neutral-950">
       <PublicHeader />
 
-      <section className="mx-auto grid min-h-[85vh] max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2">
+      <section className="mx-auto grid min-h-[80vh] max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2">
         <div>
-          <p className="mb-5 inline-flex rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-neutral-700 shadow-sm">
+          <p className="mb-5 inline-flex rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-semibold text-neutral-700 shadow-sm sm:text-sm">
             3D property pages for real estate
           </p>
 
-          <h1 className="max-w-3xl text-5xl font-black tracking-tight md:text-7xl">
+          <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
             Show properties with interactive 3D models.
           </h1>
 
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-neutral-700">
+          <p className="mt-6 max-w-2xl text-base leading-7 text-neutral-700 sm:mt-7 sm:text-lg sm:leading-8">
             EstateAI helps real estate agents present properties with
             browser-ready 3D pages that can be shared with buyers by link.
           </p>
 
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <Link
               href="/examples"
               className="rounded-full bg-black px-8 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"
@@ -42,45 +42,51 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-12 grid max-w-xl grid-cols-3 gap-4">
+          <div className="mt-10 grid max-w-xl grid-cols-3 gap-3 sm:mt-12 sm:gap-4">
             <div>
-              <p className="text-3xl font-black">3D</p>
-              <p className="mt-1 text-sm text-neutral-600">property view</p>
+              <p className="text-2xl font-black sm:text-3xl">3D</p>
+              <p className="mt-1 text-xs text-neutral-600 sm:text-sm">
+                property view
+              </p>
             </div>
 
             <div>
-              <p className="text-3xl font-black">1 link</p>
-              <p className="mt-1 text-sm text-neutral-600">easy sharing</p>
+              <p className="text-2xl font-black sm:text-3xl">1 link</p>
+              <p className="mt-1 text-xs text-neutral-600 sm:text-sm">
+                easy sharing
+              </p>
             </div>
 
             <div>
-              <p className="text-3xl font-black">0 apps</p>
-              <p className="mt-1 text-sm text-neutral-600">for buyers</p>
+              <p className="text-2xl font-black sm:text-3xl">0 apps</p>
+              <p className="mt-1 text-xs text-neutral-600 sm:text-sm">
+                for buyers
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-black/10 bg-white p-4 shadow-2xl shadow-black/10">
-          <div className="overflow-hidden rounded-[1.5rem] bg-neutral-100">
+        <div className="rounded-[1.5rem] border border-black/10 bg-white p-3 shadow-2xl shadow-black/10 sm:rounded-[2rem] sm:p-4">
+          <div className="overflow-hidden rounded-[1.2rem] bg-neutral-100 sm:rounded-[1.5rem]">
             <img
               src={`${demoProperty.images[0]}?auto=format&fit=crop&w=1400&q=85`}
               alt={demoProperty.title}
-              className="h-[420px] w-full object-cover"
+              className="h-72 w-full object-cover sm:h-[420px]"
             />
           </div>
 
-          <div className="p-4">
+          <div className="p-3 sm:p-4">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-medium text-neutral-500">
                   {demoProperty.city}
                 </p>
-                <h2 className="mt-2 text-2xl font-black">
+                <h2 className="mt-2 text-xl font-black sm:text-2xl">
                   {demoProperty.title}
                 </h2>
               </div>
 
-              <span className="rounded-full bg-black px-4 py-2 text-xs font-bold uppercase tracking-wide text-white">
+              <span className="rounded-full bg-black px-3 py-2 text-xs font-bold uppercase tracking-wide text-white sm:px-4">
                 3D
               </span>
             </div>
@@ -100,18 +106,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="how-it-works" className="mx-auto max-w-7xl px-6 py-20">
+      <section id="how-it-works" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="max-w-3xl">
           <p className="text-sm font-bold uppercase tracking-[0.25em] text-neutral-500">
             How it works
           </p>
 
-          <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
+          <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
             From property capture to shareable 3D page.
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:mt-12 md:grid-cols-3">
           {[
             {
               number: "01",
@@ -131,32 +137,32 @@ export default function HomePage() {
           ].map((step) => (
             <div
               key={step.number}
-              className="rounded-[2rem] border border-black/10 bg-white p-8 shadow-sm"
+              className="rounded-[1.5rem] border border-black/10 bg-white p-6 shadow-sm sm:rounded-[2rem] sm:p-8"
             >
               <p className="text-sm font-black text-neutral-400">
                 {step.number}
               </p>
-              <h3 className="mt-8 text-2xl font-black">{step.title}</h3>
+              <h3 className="mt-6 text-2xl font-black sm:mt-8">{step.title}</h3>
               <p className="mt-4 leading-7 text-neutral-600">{step.text}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section id="benefits" className="mx-auto max-w-7xl px-6 py-20">
-        <div className="rounded-[2rem] bg-black p-8 text-white md:p-12">
+      <section id="benefits" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+        <div className="rounded-[1.5rem] bg-black p-6 text-white sm:rounded-[2rem] sm:p-8 md:p-12">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.25em] text-white/50">
                 Why agents need it
               </p>
 
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
+              <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
                 Better listings. Better understanding. Fewer wasted visits.
               </h2>
             </div>
 
-            <div className="grid gap-5">
+            <div className="grid gap-4 sm:gap-5">
               {[
                 "Buyers understand the layout before visiting.",
                 "Agents send one strong 3D link instead of many photos.",
@@ -177,18 +183,18 @@ export default function HomePage() {
 
       <PricingSection />
 
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="rounded-[2rem] border border-black/10 bg-white p-8 text-center shadow-sm md:p-14">
-          <h2 className="text-4xl font-black tracking-tight md:text-5xl">
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+        <div className="rounded-[1.5rem] border border-black/10 bg-white p-6 text-center shadow-sm sm:rounded-[2rem] sm:p-8 md:p-14">
+          <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
             Want a 3D page for a property?
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-neutral-600">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg sm:leading-8">
             EstateAI is preparing early tests with real estate agents and small
             agencies.
           </p>
 
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
             <Link
               href="/request"
               className="rounded-full bg-black px-8 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"

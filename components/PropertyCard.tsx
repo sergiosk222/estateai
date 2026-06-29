@@ -9,24 +9,24 @@ export default function PropertyCard({ property }: PropertyCardProps) {
   return (
     <Link
       href={`/p/${property.slug}`}
-      className="group overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10"
+      className="group overflow-hidden rounded-[1.5rem] border border-black/10 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 sm:rounded-[2rem]"
     >
       <div className="overflow-hidden bg-neutral-100">
         <img
           src={`${property.images[0]}?auto=format&fit=crop&w=1200&q=85`}
           alt={property.title}
-          className="h-72 w-full object-cover transition duration-500 group-hover:scale-105"
+          className="h-56 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
         />
       </div>
 
-      <div className="p-6">
+      <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm font-semibold text-neutral-500">
               {property.city}
             </p>
 
-            <h2 className="mt-2 text-2xl font-black tracking-tight">
+            <h2 className="mt-2 text-xl font-black tracking-tight sm:text-2xl">
               {property.title}
             </h2>
           </div>
