@@ -15,10 +15,61 @@ export type ExtractedFrame = {
   size: number;
 };
 
+export type FrameQualityLabel = "usable" | "questionable" | "rejected";
+
+export type FrameQualityAnalysis = {
+  fileName: string;
+  relativePath: string;
+  width: number;
+  height: number;
+  brightness: number;
+  contrast: number;
+  blur: number;
+  darkPixelRatio: number;
+  brightPixelRatio: number;
+  score: number;
+  label: FrameQualityLabel;
+  reasons: string[];
+};
+
+export type FrameQualitySummary = {
+  totalFrames: number;
+  usableFrames: number;
+  questionableFrames: number;
+  rejectedFrames: number;
+  averageBrightness: number;
+  averageContrast: number;
+  averageBlur: number;
+  averageScore: number;
+};
+
+export type SelectedFrame = {
+  fileName: string;
+  sourceRelativePath: string;
+  selectedRelativePath: string;
+  score: number;
+  label: FrameQualityLabel;
+  reasons: string[];
+  rank: number;
+};
+
+export type FrameSelectionSummary = {
+  totalCandidates: number;
+  selectedFrames: number;
+  rejectedByQuality: number;
+  maxFrames: number;
+  minScore: number;
+  selectionStrategy: string;
+};
+
 export type ProcessingJobStatus =
   | "uploaded"
   | "extracting_frames"
   | "frames_extracted"
+  | "analyzing_frames"
+  | "frames_analyzed"
+  | "selecting_frames"
+  | "frames_selected"
   | "reconstructing"
   | "optimizing"
   | "completed"
@@ -32,11 +83,17 @@ export type ProcessingJob = {
   inputType: "photos" | "video" | "mixed" | "unknown";
   rawDir: string;
   framesDir: string;
+  selectedDir: string;
   reconstructionDir: string;
   outputDir: string;
   files: UploadedJobFile[];
   frames: ExtractedFrame[];
   frameCount: number;
+  frameQuality: FrameQualityAnalysis[];
+  frameQualitySummary: FrameQualitySummary | null;
+  selectedFrames: SelectedFrame[];
+  selectedFrameCount: number;
+  frameSelectionSummary: FrameSelectionSummary | null;
   notes: string[];
   error?: string;
 };
@@ -86,12 +143,14 @@ export async function ensureJobFolders(jobId: string) {
     jobDir,
     rawDir: path.join(jobDir, "raw"),
     framesDir: path.join(jobDir, "frames"),
+    selectedDir: path.join(jobDir, "selected"),
     reconstructionDir: path.join(jobDir, "reconstruction"),
     outputDir: path.join(jobDir, "output")
   };
 
   await fs.mkdir(folders.rawDir, { recursive: true });
   await fs.mkdir(folders.framesDir, { recursive: true });
+  await fs.mkdir(folders.selectedDir, { recursive: true });
   await fs.mkdir(folders.reconstructionDir, { recursive: true });
   await fs.mkdir(folders.outputDir, { recursive: true });
 
@@ -116,11 +175,17 @@ export async function readJob(jobId: string): Promise<ProcessingJob | null> {
       inputType: parsed.inputType || "unknown",
       rawDir: parsed.rawDir || `captures/${jobId}/raw`,
       framesDir: parsed.framesDir || `captures/${jobId}/frames`,
+      selectedDir: parsed.selectedDir || `captures/${jobId}/selected`,
       reconstructionDir: parsed.reconstructionDir || `captures/${jobId}/reconstruction`,
       outputDir: parsed.outputDir || `captures/${jobId}/output`,
       files: parsed.files || [],
       frames: parsed.frames || [],
       frameCount: parsed.frameCount || 0,
+      frameQuality: parsed.frameQuality || [],
+      frameQualitySummary: parsed.frameQualitySummary || null,
+      selectedFrames: parsed.selectedFrames || [],
+      selectedFrameCount: parsed.selectedFrameCount || 0,
+      frameSelectionSummary: parsed.frameSelectionSummary || null,
       notes: parsed.notes || [],
       error: parsed.error
     };

@@ -3,6 +3,8 @@ import path from "path";
 import { promises as fs } from "fs";
 import { NextResponse } from "next/server";
 import { extractFramesForJob } from "@/lib/frame-extraction";
+import { analyzeFrameQualityForJob } from "@/lib/frame-quality";
+import { selectBestFramesForJob } from "@/lib/best-frame-selection";
 import {
   detectInputType,
   ensureJobFolders,
@@ -116,11 +118,17 @@ export async function POST(request: Request) {
       inputType: detectInputType(savedFiles),
       rawDir: `captures/${jobId}/raw`,
       framesDir: `captures/${jobId}/frames`,
+      selectedDir: `captures/${jobId}/selected`,
       reconstructionDir: `captures/${jobId}/reconstruction`,
       outputDir: `captures/${jobId}/output`,
       files: savedFiles,
       frames: [],
       frameCount: 0,
+      frameQuality: [],
+      frameQualitySummary: null,
+      selectedFrames: [],
+      selectedFrameCount: 0,
+      frameSelectionSummary: null,
       notes: [
         "Files uploaded successfully.",
         "Processing job created."
@@ -129,34 +137,42 @@ export async function POST(request: Request) {
 
     await writeJob(job);
 
-    if (hasVideoFiles(savedFiles)) {
-      try {
+    try {
+      if (hasVideoFiles(savedFiles)) {
         job = await extractFramesForJob(job, {
           fps: 2,
           width: 1600
         });
-      } catch (frameError) {
-        console.error("Frame extraction failed:", frameError);
-
-        job.status = "failed";
-        job.error =
-          frameError instanceof Error
-            ? frameError.message
-            : "Frame extraction failed.";
-        job.notes.push("Frame extraction failed.");
+      } else {
+        job.notes.push("No video uploaded. Using uploaded images as reconstruction candidates.");
         await writeJob(job);
-
-        return NextResponse.json(
-          {
-            message: "Upload completed, but frame extraction failed.",
-            job
-          },
-          { status: 500 }
-        );
       }
-    } else {
-      job.notes.push("No video uploaded. Frame extraction skipped.");
+
+      job = await analyzeFrameQualityForJob(job);
+
+      job = await selectBestFramesForJob(job, {
+        maxFrames: 120,
+        minScore: 55,
+        minFrameSpacing: 2
+      });
+    } catch (processingError) {
+      console.error("Processing failed:", processingError);
+
+      job.status = "failed";
+      job.error =
+        processingError instanceof Error
+          ? processingError.message
+          : "Processing failed.";
+      job.notes.push("Automatic processing failed.");
       await writeJob(job);
+
+      return NextResponse.json(
+        {
+          message: "Upload completed, but automatic processing failed.",
+          job
+        },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json(
