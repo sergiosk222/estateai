@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import ModelViewer from "@/components/ModelViewer";
 import PropertyGallery from "@/components/PropertyGallery";
@@ -11,6 +12,44 @@ type PropertyPageProps = {
     slug: string;
   }>;
 };
+
+export async function generateMetadata({
+  params
+}: PropertyPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const property = getPropertyBySlug(slug);
+
+  if (!property) {
+    return {
+      title: "Property not found",
+      description: "This EstateAI property page could not be found."
+    };
+  }
+
+  return {
+    title: `${property.title}`,
+    description: property.description,
+    openGraph: {
+      title: `${property.title} | EstateAI`,
+      description: property.description,
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${property.title} preview`
+        }
+      ],
+      type: "website"
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${property.title} | EstateAI`,
+      description: property.description,
+      images: ["/og-image.png"]
+    }
+  };
+}
 
 export default async function PropertyPage({ params }: PropertyPageProps) {
   const { slug } = await params;
