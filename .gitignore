@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env*
+
+# EstateAI local captures and generated files
+captures/
+input/
+output/

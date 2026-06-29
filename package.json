@@ -11,7 +11,9 @@
     "model:resize": "gltf-transform resize public/models/original/input.glb public/models/optimized/resized.glb --width 2048 --height 2048",
     "model:optimize": "gltf-transform optimize public/models/original/input.glb public/models/optimized/demo-apartment.glb --texture-compress webp",
     "model:copy": "cp public/models/optimized/demo-apartment.glb public/models/demo-apartment.glb",
-    "prelaunch": "bash scripts/prelaunch-check.sh"
+    "prelaunch": "bash scripts/prelaunch-check.sh",
+    "capture:create": "bash scripts/prepare-capture-folder.sh",
+    "capture:frames": "bash scripts/extract-frames.sh"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -30,5 +32,7 @@
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "capture:create": "bash scripts/prepare-capture-folder.sh",
+  "capture:frames": "bash scripts/extract-frames.sh"
 }
