@@ -22,6 +22,9 @@ export default function HomePage() {
             <Link href="/processing/demo-job" className="hover:text-black">
               Processing
             </Link>
+            <Link href="/pipeline" className="hover:text-black">
+              Pipeline
+            </Link>
             <a href="#how-it-works" className="hover:text-black">
               How it works
             </a>

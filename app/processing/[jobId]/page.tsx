@@ -27,6 +27,13 @@ export default async function ProcessingPage({ params }: ProcessingPageProps) {
             </Link>
 
             <Link
+              href="/pipeline"
+              className="rounded-full border border-black/20 bg-white px-5 py-3 text-sm font-bold transition hover:bg-neutral-100"
+            >
+              Pipeline
+            </Link>
+
+            <Link
               href="/p/demo-apartment"
               className="rounded-full bg-black px-5 py-3 text-sm font-bold text-white transition hover:bg-neutral-800"
             >
