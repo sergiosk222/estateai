@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PublicHeader from "@/components/PublicHeader";
 import PublicFooter from "@/components/PublicFooter";
+import PricingSection from "@/components/PricingSection";
 import { properties } from "@/data/properties";
 
 export default function HomePage() {
@@ -173,6 +174,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <PricingSection />
 
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="rounded-[2rem] border border-black/10 bg-white p-8 text-center shadow-sm md:p-14">

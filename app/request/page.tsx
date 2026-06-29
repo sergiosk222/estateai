@@ -19,7 +19,7 @@ export default function RequestPage() {
 
           <p className="mt-6 text-lg leading-8 text-neutral-700">
             Send a short request. We will contact you and explain what files or
-            property capture are needed.
+            property capture are needed. Early-access packages start from 49 €.
           </p>
         </div>
 

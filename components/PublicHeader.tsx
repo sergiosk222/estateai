@@ -21,6 +21,10 @@ export default function PublicHeader() {
             Benefits
           </a>
 
+          <a href="/#pricing" className="hover:text-black">
+            Pricing
+          </a>
+
           <Link href="/request" className="hover:text-black">
             Request
           </Link>
