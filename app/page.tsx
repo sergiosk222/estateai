@@ -16,6 +16,9 @@ export default function HomePage() {
             <a href="#demo" className="hover:text-black">
               Demo
             </a>
+            <Link href="/examples" className="hover:text-black">
+              Examples
+            </Link>
             <Link href="/upload" className="hover:text-black">
               Upload
             </Link>
@@ -63,10 +66,10 @@ export default function HomePage() {
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/p/demo-apartment"
+              href="/examples"
               className="rounded-full bg-black px-8 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"
             >
-              View 3D demo
+              View examples
             </Link>
 
             <a
