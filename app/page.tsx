@@ -2,6 +2,7 @@ import TrackedLink from "@/components/TrackedLink";
 import PublicHeader from "@/components/PublicHeader";
 import PublicFooter from "@/components/PublicFooter";
 import PricingSection from "@/components/PricingSection";
+import TrustSection from "@/components/TrustSection";
 import { properties } from "@/data/properties";
 
 export default function HomePage() {
@@ -224,6 +225,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <TrustSection />
 
       <PricingSection />
 
