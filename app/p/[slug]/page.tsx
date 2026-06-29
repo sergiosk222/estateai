@@ -1,6 +1,8 @@
 import Link from "next/link";
 import ModelViewer from "@/components/ModelViewer";
 import PropertyGallery from "@/components/PropertyGallery";
+import PublicHeader from "@/components/PublicHeader";
+import PublicFooter from "@/components/PublicFooter";
 import ShareButton from "@/components/ShareButton";
 import { getPropertyBySlug } from "@/data/properties";
 
@@ -29,23 +31,18 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
   return (
     <main className="min-h-screen bg-white text-neutral-950">
-      <header className="border-b border-neutral-200">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <Link href="/" className="text-sm font-bold tracking-[0.25em]">
-            ESTATEAI
-          </Link>
-          <span className="text-sm text-neutral-500">Powered by EstateAI</span>
-        </div>
-      </header>
+      <PublicHeader />
 
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="mb-8">
           <p className="text-sm font-medium text-neutral-500">
             {property.city}
           </p>
+
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">
             {property.title}
           </h1>
+
           <p className="mt-5 max-w-3xl text-lg leading-8 text-neutral-600">
             {property.description}
           </p>
@@ -55,12 +52,20 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <ShareButton />
-          <a
+
+          <Link
             href="/request"
             className="rounded-full border border-neutral-300 px-6 py-3 text-center text-sm font-semibold transition hover:bg-neutral-100"
           >
-            Request 3D model
-          </a>
+            Request a 3D page
+          </Link>
+
+          <Link
+            href="/examples"
+            className="rounded-full border border-neutral-300 px-6 py-3 text-center text-sm font-semibold transition hover:bg-neutral-100"
+          >
+            View more examples
+          </Link>
         </div>
 
         <section className="mt-14">
@@ -68,6 +73,8 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
           <PropertyGallery images={property.images} />
         </section>
       </section>
+
+      <PublicFooter />
     </main>
   );
 }

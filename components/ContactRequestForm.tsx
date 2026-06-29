@@ -48,9 +48,6 @@ Property type: ${form.propertyType}
 
 Message:
 ${form.message}
-
----
-Sent from EstateAI MVP request form.
 `;
   }
 
@@ -58,7 +55,7 @@ Sent from EstateAI MVP request form.
     event.preventDefault();
     setSubmitted(true);
 
-    const subject = encodeURIComponent("New EstateAI 3D model request");
+    const subject = encodeURIComponent("New EstateAI 3D property request");
     const body = encodeURIComponent(buildEmailBody());
 
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
@@ -84,7 +81,7 @@ Sent from EstateAI MVP request form.
               required
               value={form.name}
               onChange={(event) => updateField("name", event.target.value)}
-              placeholder="John Papadopoulos"
+              placeholder="Your name"
               className="mt-2 w-full rounded-2xl border border-black/10 bg-neutral-50 px-4 py-4 outline-none transition focus:border-black"
             />
           </div>
@@ -167,7 +164,7 @@ Sent from EstateAI MVP request form.
           <textarea
             value={form.message}
             onChange={(event) => updateField("message", event.target.value)}
-            placeholder="I want to create a 3D model for a property listing..."
+            placeholder="I want a 3D page for a property listing..."
             rows={6}
             className="mt-2 w-full rounded-2xl border border-black/10 bg-neutral-50 px-4 py-4 outline-none transition focus:border-black"
           />
@@ -178,7 +175,7 @@ Sent from EstateAI MVP request form.
             type="submit"
             className="rounded-full bg-black px-8 py-4 text-sm font-bold text-white transition hover:bg-neutral-800"
           >
-            Send request by email
+            Send request
           </button>
 
           <button
@@ -186,7 +183,7 @@ Sent from EstateAI MVP request form.
             onClick={copyRequestText}
             className="rounded-full border border-black/20 bg-white px-8 py-4 text-sm font-bold transition hover:bg-neutral-100"
           >
-            Copy request text
+            Copy text
           </button>
         </div>
 
@@ -204,13 +201,12 @@ Sent from EstateAI MVP request form.
           </p>
 
           <h2 className="mt-5 text-3xl font-black">
-            Request a 3D property model
+            Create a stronger property listing.
           </h2>
 
           <p className="mt-4 leading-7 text-white/70">
-            This MVP form is designed for first conversations with real estate
-            agents and small agencies. The first projects can be processed
-            manually while the platform is being developed.
+            EstateAI helps present properties with a clear, shareable 3D page
+            that buyers can open directly in the browser.
           </p>
         </div>
 
@@ -221,11 +217,11 @@ Sent from EstateAI MVP request form.
 
           <div className="mt-6 space-y-4">
             {[
-              "We receive the property request.",
-              "We check if the object is suitable for a 3D demo.",
-              "We explain what photos/video are needed.",
-              "We create a browser-ready 3D property page.",
-              "The agent receives a shareable link."
+              "We receive your request.",
+              "We check the property type and location.",
+              "We explain what photos, video or scan are needed.",
+              "A 3D property page is prepared.",
+              "You receive a shareable link."
             ].map((item, index) => (
               <div key={item} className="flex gap-4">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black text-xs font-black text-white">
@@ -237,17 +233,6 @@ Sent from EstateAI MVP request form.
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="rounded-[2rem] border border-black/10 bg-white p-6 shadow-sm md:p-8">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-neutral-500">
-            Current limitation
-          </p>
-
-          <p className="mt-4 leading-7 text-neutral-700">
-            This is not connected to a database yet. In the next backend stage,
-            requests will be saved automatically.
-          </p>
         </div>
       </div>
     </div>
