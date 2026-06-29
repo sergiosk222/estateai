@@ -1,8 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-
-const CONTACT_EMAIL = "hello@estateai.gr";
+import { CONTACT_EMAIL } from "@/lib/contact";
 
 type FormState = {
   name: string;
