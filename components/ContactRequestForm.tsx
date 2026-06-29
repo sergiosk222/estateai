@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { track } from "@vercel/analytics";
 
 type FormState = {
   name: string;
@@ -42,6 +43,11 @@ export default function ContactRequestForm() {
     setStatus("sending");
     setErrorMessage("");
 
+    track("contact_form_submit_attempt", {
+      propertyType: form.propertyType,
+      city: form.city || "not_provided"
+    });
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -57,9 +63,19 @@ export default function ContactRequestForm() {
         throw new Error(result.message || "Failed to send request.");
       }
 
+      track("contact_form_submit_success", {
+        propertyType: form.propertyType,
+        city: form.city || "not_provided"
+      });
+
       setStatus("success");
       setForm(initialState);
     } catch (error) {
+      track("contact_form_submit_error", {
+        propertyType: form.propertyType,
+        city: form.city || "not_provided"
+      });
+
       setStatus("error");
       setErrorMessage(
         error instanceof Error

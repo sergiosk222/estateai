@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import TrackedLink from "@/components/TrackedLink";
 import ModelViewer from "@/components/ModelViewer";
 import PropertyGallery from "@/components/PropertyGallery";
 import PublicHeader from "@/components/PublicHeader";
@@ -92,19 +93,27 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <ShareButton />
 
-          <Link
+          <TrackedLink
             href="/request"
+            eventName="property_request_click"
+            eventProperties={{
+              property: property.slug
+            }}
             className="rounded-full border border-neutral-300 px-6 py-3 text-center text-sm font-semibold transition hover:bg-neutral-100"
           >
             Request a 3D page
-          </Link>
+          </TrackedLink>
 
-          <Link
+          <TrackedLink
             href="/examples"
+            eventName="property_more_examples_click"
+            eventProperties={{
+              property: property.slug
+            }}
             className="rounded-full border border-neutral-300 px-6 py-3 text-center text-sm font-semibold transition hover:bg-neutral-100"
           >
             View more examples
-          </Link>
+          </TrackedLink>
         </div>
 
         <section className="mt-14">

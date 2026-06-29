@@ -1,4 +1,4 @@
-import Link from "next/link";
+import TrackedLink from "@/components/TrackedLink";
 
 const plans = [
   {
@@ -123,8 +123,13 @@ export default function PricingSection() {
               ))}
             </div>
 
-            <Link
+            <TrackedLink
               href="/request"
+              eventName="pricing_package_click"
+              eventProperties={{
+                package: plan.name,
+                price: plan.price
+              }}
               className={`mt-10 block rounded-full px-7 py-4 text-center text-sm font-bold transition ${
                 plan.highlighted
                   ? "bg-white text-black hover:bg-neutral-200"
@@ -132,7 +137,7 @@ export default function PricingSection() {
               }`}
             >
               Request this package
-            </Link>
+            </TrackedLink>
           </div>
         ))}
       </div>

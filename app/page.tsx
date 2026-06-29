@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TrackedLink from "@/components/TrackedLink";
 import PublicHeader from "@/components/PublicHeader";
 import PublicFooter from "@/components/PublicFooter";
 import PricingSection from "@/components/PricingSection";
@@ -27,19 +28,21 @@ export default function HomePage() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
-            <Link
+            <TrackedLink
               href="/examples"
+              eventName="hero_examples_click"
               className="rounded-full bg-black px-8 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"
             >
               View examples
-            </Link>
+            </TrackedLink>
 
-            <Link
+            <TrackedLink
               href="/request"
+              eventName="hero_request_click"
               className="rounded-full border border-black/20 bg-white px-8 py-4 text-center text-sm font-bold transition hover:bg-neutral-100"
             >
               Request a 3D model
-            </Link>
+            </TrackedLink>
           </div>
 
           <div className="mt-10 grid max-w-xl grid-cols-3 gap-3 sm:mt-12 sm:gap-4">
@@ -96,12 +99,16 @@ export default function HomePage() {
               3D model in the browser.
             </p>
 
-            <Link
+            <TrackedLink
               href={`/p/${demoProperty.slug}`}
+              eventName="home_3d_example_click"
+              eventProperties={{
+                property: demoProperty.slug
+              }}
               className="mt-6 block rounded-full bg-black px-6 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"
             >
               Open 3D example
-            </Link>
+            </TrackedLink>
           </div>
         </div>
       </section>
