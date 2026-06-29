@@ -19,6 +19,9 @@ export default function HomePage() {
             <Link href="/upload" className="hover:text-black">
               Upload
             </Link>
+            <Link href="/processing/demo-job" className="hover:text-black">
+              Processing
+            </Link>
             <a href="#how-it-works" className="hover:text-black">
               How it works
             </a>

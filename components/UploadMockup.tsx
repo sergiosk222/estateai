@@ -189,9 +189,18 @@ export default function UploadMockup() {
             )}
 
             {status === "queued" && (
-              <p className="font-semibold text-green-700">
-                Queued for AI processing. This is a frontend mockup.
-              </p>
+              <div>
+                <p className="font-semibold text-green-700">
+                  Queued for AI processing. This is a frontend mockup.
+                </p>
+
+                <a
+                  href="/processing/demo-job"
+                  className="mt-4 inline-flex rounded-full bg-black px-5 py-3 text-sm font-bold text-white transition hover:bg-neutral-800"
+                >
+                  Open processing status
+                </a>
+              </div>
             )}
           </div>
         </div>
