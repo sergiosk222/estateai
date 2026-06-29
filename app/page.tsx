@@ -25,6 +25,9 @@ export default function HomePage() {
             <Link href="/pipeline" className="hover:text-black">
               Pipeline
             </Link>
+            <Link href="/request" className="hover:text-black">
+              Request
+            </Link>
             <a href="#how-it-works" className="hover:text-black">
               How it works
             </a>
@@ -34,7 +37,7 @@ export default function HomePage() {
           </nav>
 
           <a
-            href="mailto:hello@estateai.gr"
+            href="/request"
             className="rounded-full bg-black px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800"
           >
             Request demo
@@ -282,7 +285,7 @@ export default function HomePage() {
 
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <a
-              href="mailto:hello@estateai.gr"
+              href="/request"
               className="rounded-full bg-black px-8 py-4 text-center text-sm font-bold text-white transition hover:bg-neutral-800"
             >
               Request early access

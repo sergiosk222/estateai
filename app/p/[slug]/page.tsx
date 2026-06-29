@@ -56,7 +56,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <ShareButton />
           <a
-            href="mailto:hello@estateai.gr"
+            href="/request"
             className="rounded-full border border-neutral-300 px-6 py-3 text-center text-sm font-semibold transition hover:bg-neutral-100"
           >
             Request 3D model
