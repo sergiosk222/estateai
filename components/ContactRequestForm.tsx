@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { CONTACT_EMAIL } from "@/lib/contact";
 
 type FormState = {
   name: string;
@@ -12,6 +11,8 @@ type FormState = {
   propertyType: string;
   message: string;
 };
+
+type SubmitStatus = "idle" | "sending" | "success" | "error";
 
 const initialState: FormState = {
   name: "",
@@ -25,7 +26,8 @@ const initialState: FormState = {
 
 export default function ContactRequestForm() {
   const [form, setForm] = useState<FormState>(initialState);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function updateField(field: keyof FormState, value: string) {
     setForm((current) => ({
@@ -34,35 +36,37 @@ export default function ContactRequestForm() {
     }));
   }
 
-  function buildEmailBody() {
-    return `
-New EstateAI request
-
-Name: ${form.name}
-Email: ${form.email}
-Phone: ${form.phone}
-Company: ${form.company}
-City: ${form.city}
-Property type: ${form.propertyType}
-
-Message:
-${form.message}
-`;
-  }
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
 
-    const subject = encodeURIComponent("New EstateAI 3D property request");
-    const body = encodeURIComponent(buildEmailBody());
+    setStatus("sending");
+    setErrorMessage("");
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-  }
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(form)
+      });
 
-  async function copyRequestText() {
-    await navigator.clipboard.writeText(buildEmailBody());
-    alert("Request text copied");
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to send request.");
+      }
+
+      setStatus("success");
+      setForm(initialState);
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
+    }
   }
 
   return (
@@ -73,9 +77,7 @@ ${form.message}
       >
         <div className="grid gap-5 md:grid-cols-2">
           <div>
-            <label className="text-sm font-bold text-neutral-700">
-              Name
-            </label>
+            <label className="text-sm font-bold text-neutral-700">Name</label>
             <input
               required
               value={form.name}
@@ -86,9 +88,7 @@ ${form.message}
           </div>
 
           <div>
-            <label className="text-sm font-bold text-neutral-700">
-              Email
-            </label>
+            <label className="text-sm font-bold text-neutral-700">Email</label>
             <input
               required
               type="email"
@@ -100,9 +100,7 @@ ${form.message}
           </div>
 
           <div>
-            <label className="text-sm font-bold text-neutral-700">
-              Phone
-            </label>
+            <label className="text-sm font-bold text-neutral-700">Phone</label>
             <input
               value={form.phone}
               onChange={(event) => updateField("phone", event.target.value)}
@@ -124,9 +122,7 @@ ${form.message}
           </div>
 
           <div>
-            <label className="text-sm font-bold text-neutral-700">
-              City
-            </label>
+            <label className="text-sm font-bold text-neutral-700">City</label>
             <input
               value={form.city}
               onChange={(event) => updateField("city", event.target.value)}
@@ -157,9 +153,7 @@ ${form.message}
         </div>
 
         <div className="mt-5">
-          <label className="text-sm font-bold text-neutral-700">
-            Message
-          </label>
+          <label className="text-sm font-bold text-neutral-700">Message</label>
           <textarea
             value={form.message}
             onChange={(event) => updateField("message", event.target.value)}
@@ -169,26 +163,25 @@ ${form.message}
           />
         </div>
 
-        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+        <div className="mt-8">
           <button
             type="submit"
-            className="rounded-full bg-black px-8 py-4 text-sm font-bold text-white transition hover:bg-neutral-800"
+            disabled={status === "sending"}
+            className="w-full rounded-full bg-black px-8 py-4 text-sm font-bold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
           >
-            Send request
-          </button>
-
-          <button
-            type="button"
-            onClick={copyRequestText}
-            className="rounded-full border border-black/20 bg-white px-8 py-4 text-sm font-bold transition hover:bg-neutral-100"
-          >
-            Copy text
+            {status === "sending" ? "Sending..." : "Send request"}
           </button>
         </div>
 
-        {submitted && (
+        {status === "success" && (
           <div className="mt-6 rounded-2xl bg-green-50 p-5 text-sm font-semibold text-green-800">
-            Request prepared. Your email app should open with the message.
+            Request sent successfully. We will contact you soon.
+          </div>
+        )}
+
+        {status === "error" && (
+          <div className="mt-6 rounded-2xl bg-red-50 p-5 text-sm font-semibold text-red-800">
+            {errorMessage}
           </div>
         )}
       </form>
